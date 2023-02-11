@@ -19,7 +19,9 @@ const EditBox = (props: InputProps) => {
   return (
     <div className="border-2 border-black w-full lg:w-1/3 xl:w-1/4 max-h-72 rounded-3xl pt-4 mx-5">
       <div>
-        <h1 className="pb-6 font-bold mx-8">{dateFormat(editBoxData.date)}</h1>
+        <h1 data-testid="date" className="pb-6 font-bold mx-8">
+          {dateFormat(editBoxData.date)}
+        </h1>
         <div className="relative mx-8">
           <textarea
             className="w-full h-32 p-2 rounded border-0 border-gray-400  overflow-y-auto"
