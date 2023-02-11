@@ -14,3 +14,19 @@ export interface Gradient {
   name: string;
   colors: Array<string>;
 }
+
+export class TranslationDateFormat {
+  public day: string = "";
+  public translationText: string;
+  public year: string = "";
+
+  constructor(translationText: string, day?: string, year?: string) {
+    this.translationText = translationText.toLowerCase();
+    if (day) {
+      this.day = day;
+    }
+    if (year) {
+      this.year = year;
+    }
+  }
+}

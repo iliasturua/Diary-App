@@ -1,5 +1,5 @@
 import { format, subDays, isAfter, addDays, isTomorrow } from "date-fns";
-import { Day, Gradient } from "./types";
+import { Day, Gradient, TranslationDateFormat } from "./types";
 import { isSameWeek, isSameYear } from "date-fns";
 
 export const merge = (data: { [key: string]: any }) => {
@@ -46,21 +46,28 @@ export const getGradientClassName = (gradient?: Gradient): string => {
   return `linear-gradient(to right, ${from}, ${to})`;
 };
 
-export const dateFormat = (date: string): string => {
+export const dateFormat = (date: string): TranslationDateFormat => {
   const passedDate = new Date(date);
 
   const currentDate = new Date();
   if (isSameWeek(passedDate, currentDate)) {
-    return format(passedDate, "iiii");
+    return new TranslationDateFormat(format(passedDate, "iiii"));
   }
 
   if (isTomorrow(passedDate)) {
-    return "Tomorrow";
+    return new TranslationDateFormat("Tomorrow");
   }
 
   if (isSameYear(passedDate, currentDate)) {
-    return format(passedDate, "dd MMMM");
+    return new TranslationDateFormat(
+      format(passedDate, "MMMM"),
+      format(passedDate, "dd ")
+    );
   }
 
-  return format(passedDate, "dd MMMM, yyyy");
+  return new TranslationDateFormat(
+    format(passedDate, "MMMM"),
+    format(passedDate, "dd "),
+    format(passedDate, ", yyyy")
+  );
 };

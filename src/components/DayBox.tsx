@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 import Button from "../core-components/Button";
 import { Day, Gradient } from "../types";
 import { dateFormat, getGradientClassName } from "../utils";
@@ -26,6 +27,10 @@ const DayBox = (props: InputProps) => {
     disabled,
   } = props;
 
+  const { t } = useTranslation();
+
+  const dt = dateFormat(date);
+
   return (
     <div
       onClick={
@@ -41,7 +46,7 @@ const DayBox = (props: InputProps) => {
       }`}
       style={{ background: getGradientClassName(gradient) }}
     >
-      <h1>{dateFormat(date)}</h1>
+      <h1>{t(dt.translationText, { day: dt.day, year: dt.year })}</h1>
       <p className="max-w-full break-words overflow-y-auto p-1 h-1/2">
         {description || ""}
       </p>

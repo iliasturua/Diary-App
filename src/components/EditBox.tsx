@@ -1,8 +1,9 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useDebounce } from "../hooks/debounce.hook";
 import { Day } from "../types";
 import { dateFormat } from "../utils";
 import Score from "./Score";
+import { useTranslation } from "react-i18next";
 
 export interface InputProps {
   sendData: (day: Day) => void;
@@ -14,13 +15,17 @@ export interface InputProps {
 const EditBox = (props: InputProps) => {
   const { sendData, setEditBoxData, editBoxData, backgroundClassName } = props;
 
+  const { t } = useTranslation();
+
   const debouncedSend = useDebounce(sendData, 1000);
+
+  const dt = dateFormat(editBoxData.date);
 
   return (
     <div className="border-2 border-black w-full lg:w-1/3 xl:w-1/4 max-h-72 rounded-3xl pt-4 mx-5">
       <div>
         <h1 data-testid="date" className="pb-6 font-bold mx-8">
-          {dateFormat(editBoxData.date)}
+          {t(dt.translationText, { day: dt.day, year: dt.year })}
         </h1>
         <div className="relative mx-8">
           <textarea
